@@ -9,9 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import curso.api.rest.model.Usuario;
@@ -86,5 +86,25 @@ public class IndexController {
 		return new ResponseEntity("id user :" + iduser + "idvenda" + idvenda, HttpStatus.OK);
 	}
 	
+	/*Atualizar Usuario PutMapping*/
+	
+	@PutMapping(value = "/", produces = "application/json") /*Mapear para a barra normal*/
+	   public ResponseEntity<Usuario> atualizar(@RequestBody Usuario usuario){
+			
+			Usuario usuarioSalvo = usuarioRepository.save(usuario);
+		
+			return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
+		}
+	
+	/*Serviço post metodo cadastrar com @PathVariable só simulação */
+	@PutMapping(value = "/{iduser}/idvenda/{idvenda}", produces = "application/json") /*Mapear para iduser / idvenda*/
+   public ResponseEntity updateVenda(@PathVariable Long iduser ,
+		                                @PathVariable Long idvenda){
+		
+		/*Outras rotina de atualizar*/
+	    //Usuario usuarioSalvo = usuarioRepository.save(usuario);
+	
+		return new ResponseEntity("venda atualizada" , HttpStatus.OK);
+	}
 	
 	}

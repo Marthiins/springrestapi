@@ -1,46 +1,49 @@
 package curso.api.rest.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import curso.api.rest.model.Usuario;
+import curso.api.rest.repository.UsuarioRepository;
 
-@RestController /* Obrigatorio Anotação para aceitar os metodos rest */
+
+@RestController /* Obrigatorio Anotação para aceitar os metodos Arquitetura Rest */
 @RequestMapping(value = "/usuario")
 public class IndexController {
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	/*
 	 * para bater no metodo vamos precisar da um /usuario e / * no localhost:8080
 	 */
 
 	/* Serviço Restufull */
-	@GetMapping(value = "/", produces = "application/json") /* Para acessar pela URL é um get */
-	public ResponseEntity<Usuario> init(){
-		Usuario usuario = new Usuario();
-		usuario.setId(50L); //Id é Long
-		usuario.setLogin("seergio@gmail.com");
-		usuario.setNome("Sérgio");
-		usuario.setSenha("1234");
+	@GetMapping(value = "/{id}", produces = "application/json") /* Para acessar pela URL é um get */
+	public ResponseEntity<Usuario> init(@PathVariable(value = "id") Long id){
 		
-		Usuario usuario2 = new Usuario();
-		usuario2.setId(10L); //Id é Long
-		usuario2.setLogin("seo@gmail.com");
-		usuario2.setNome("Kamylla");
-		usuario2.setSenha("1234");
+		Optional<Usuario> usuario =  usuarioRepository.findById(id);
 		
-		/*Como tem mais de 2 usuariocria a lista*/
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		usuarios.add(usuario);//adicionar os usuarios na lista
-		usuarios.add(usuario2);
-		
-		return new ResponseEntity(usuarios, HttpStatus.OK );
+		return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK );
 				
 	}
+	
+	/*Metodo consultar todos*/
+	@GetMapping(value = "/" , produces = "application/json")
+	public ResponseEntity<List<Usuario>> usuario(){
+		
+		List<Usuario> list = (List<Usuario>) usuarioRepository.findAll();
+		
+		return new ResponseEntity<List<Usuario>>(list, HttpStatus.OK);
+	}
+	
 			
 }

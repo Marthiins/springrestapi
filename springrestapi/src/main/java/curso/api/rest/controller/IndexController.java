@@ -36,6 +36,21 @@ public class IndexController {
 				
 	}
 	
+	
+	/* Serviço Restufull serviço de relatorio */
+	@GetMapping(value = "/{id}/codigovenda/{venda}", produces = "application/pdf") /* Para acessar pela URL é um get */
+	public ResponseEntity<Usuario> relatorio(@PathVariable(value = "id") Long id ,
+			                                 @PathVariable(value = "venda" ) Long venda){
+		
+		/*Como iria chamar esse relatório*/
+		Optional<Usuario> usuario =  usuarioRepository.findById(id);
+		
+		/*Suponha que o retorno seria um relatório*/
+		return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK );
+				
+	}
+	
+	
 	/*Metodo consultar todos*/
 	@GetMapping(value = "/" , produces = "application/json")
 	public ResponseEntity<List<Usuario>> usuario(){

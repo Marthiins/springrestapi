@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -107,4 +108,26 @@ public class IndexController {
 		return new ResponseEntity("venda atualizada" , HttpStatus.OK);
 	}
 	
+	
+	/* Metodo remover não tem retorno */
+	//Id sempre a anotação é @PathVariable
+	@DeleteMapping(value = "/{id}" , produces = "application/text")
+	public String delete (@PathVariable("id") Long id) {
+	
+		usuarioRepository.deleteById(id);
+		
+		return "ok"; /*Só para testar se foi deletado*/
 	}
+	
+	
+	//Id sempre a anotação é @PathVariable
+	@DeleteMapping(value = "/{id}/venda" , produces = "application/text")
+	public String deleteVenda (@PathVariable("id") Long id) {
+	
+		usuarioRepository.deleteById(id);/*Iria deletar todas as vendas do usuario*/
+		
+		return "ok"; /*Só para testar se foi deletado*/
+	}
+	
+	}
+	

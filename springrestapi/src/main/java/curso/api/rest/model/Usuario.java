@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +17,6 @@ public class Usuario implements Serializable{ /*Sempre implementar o serializabl
 	
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -25,13 +25,21 @@ public class Usuario implements Serializable{ /*Sempre implementar o serializabl
 	
 	private String senha;
 	
-	/*O usuario tem muitos telefones*/
-	@OneToMany(mappedBy = "usuario" , orphanRemoval = true, cascade = CascadeType.ALL )
-	private List<Telefone> telefones = new ArrayList<Telefone>();
-	
 	private String nome;
 	
+	/*O usuario tem muitos telefones*/
 	
+	@OneToMany(mappedBy = "usuario" , orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Telefone> telefones = new ArrayList<Telefone>();
+	
+
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
+	}
 
 	public String getNome() {
 		return nome;

@@ -12,6 +12,7 @@
 	<groupId>com.drogariaronepharma</groupId>
 	<artifactId>springrestapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
 	<name>springrestapi</name>
 	<description>Api Spring Boot</description>
 	<properties>

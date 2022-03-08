@@ -5,7 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
 import org.hibernate.annotations.ForeignKey;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity /*Para se tornar uma classe persistente que representa uma tabela no banco de dados */

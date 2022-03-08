@@ -5,9 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
 import org.hibernate.annotations.ForeignKey;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity /*Para se tornar uma classe persistente que representa uma tabela no banco de dados */
@@ -21,10 +19,7 @@ public class Telefone { /*Regra de negocio é muitos telefone para um*/
 	
 	@JsonIgnore
 	@ForeignKey(name = "usuario_id")
-   @ManyToOne /*Muitos para um e depois temos que fazer o inversor na classe usuario*/
-	
-	
-	
+   @ManyToOne(optional = false) /*Muitos para um e depois temos que fazer o inversor na classe usuario*/
 	
 	private Usuario usuario;
 

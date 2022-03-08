@@ -29,10 +29,6 @@ public class IndexController {
 	@Autowired
 	private TelefoneRepository telefoneRepository;
 
-	/*
-	 * para bater no metodo vamos precisar da um /usuario e / * no localhost:8080
-	 */
-
 	/* Serviço Restufull */
 	@GetMapping(value = "/{id}", produces = "application/json") /* Para acessar pela URL é um get */
 	public ResponseEntity<Usuario> init(@PathVariable(value = "id") Long id) {
@@ -81,7 +77,6 @@ public class IndexController {
 		}
 		
 		Usuario usuarioSalvo = usuarioRepository.save(usuario);
-		
 		
 		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
 		

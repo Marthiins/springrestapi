@@ -1,19 +1,27 @@
 package curso.api.rest.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.UniqueConstraint;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class Usuario implements Serializable{ /*Sempre implementar o serializable*/
+public class Usuario implements UserDetails{ /*UserDetails tem o serializable*/
 	
 	private static final long serialVersionUID = 1L;
 
@@ -29,10 +37,20 @@ public class Usuario implements Serializable{ /*Sempre implementar o serializabl
 	
 	/*O usuario tem muitos telefones*/
 	
-	@OneToMany(mappedBy = "usuario" , orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "usuario" , orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Telefone> telefones = new ArrayList<Telefone>();
 	
-
+	@OneToMany(fetch = FetchType.EAGER) /*Um usuario pode ter muitos acessos*/
+    @JoinTable(name = "usuarios_role", uniqueConstraints = @UniqueConstraint (
+    		columnNames = {"usuario_id", "role_id"}, name = "unique_role_user"),
+    joinColumns = @JoinColumn (name = "usuario_id", referencedColumnName = "id", table = "usuario", unique = false,
+    foreignKey = @ForeignKey(name = "usuario_fk", value = ConstraintMode.CONSTRAINT)),
+    
+    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", table = "role", unique = false, updatable = false,
+    foreignKey = @ForeignKey(name = "role_fk", value = ConstraintMode.CONSTRAINT)))/*Criar a tabela com as colunas no banco de dados com o codigo do usuario e acesso*/
+	private List<Role> roles; /*Os papeis ou acessos*/
+	
+	
 	public List<Telefone> getTelefones() {
 		return telefones;
 	}
@@ -73,6 +91,49 @@ public class Usuario implements Serializable{ /*Sempre implementar o serializabl
 		this.senha = senha;
 	}
 
+
+	/*São os acessos do usuario ROLE_ADMIN OU ROLE_VISITANTE */
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return roles;
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.senha;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.login;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

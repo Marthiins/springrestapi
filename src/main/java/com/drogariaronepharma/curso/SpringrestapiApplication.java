@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-
+@CrossOrigin
 @SpringBootApplication
 @EntityScan(basePackages = { "curso.api.rest.model" }) /* Criar as tabelas automaticas */
 @ComponentScan(basePackages = { "curso.*" }) /* anotação Injeção de dependencias tudo que estiver dentro da pasta curso */

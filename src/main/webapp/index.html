@@ -20,7 +20,7 @@ $(document).ready (
 		url: "http://sergiomarthiins.herokuapp.com/springrestapi/usuario/",
 		method:"GET"
 		}).then(function (data, status, info){
-			alert(data);
+			alert(data[3].nome);
 		
 		});
 		

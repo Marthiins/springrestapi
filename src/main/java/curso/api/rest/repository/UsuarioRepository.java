@@ -10,5 +10,6 @@ import curso.api.rest.model.Usuario;
 public interface UsuarioRepository extends CrudRepository<Usuario, Long> { //tem que adicionar na classe indexController
 
 	@Query("select u from Usuario u where u.login = ?1")/*Executar o select na tabela usuario onde o login é igual o que foi passado o parametro */
-	Usuario findByLogin(String login);
+	Usuario findUserByLogin(String login);
+
 }

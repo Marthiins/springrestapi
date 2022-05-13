@@ -18,11 +18,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.Columns;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 public class Usuario implements UserDetails{ /*UserDetails tem o serializable*/
@@ -42,8 +43,8 @@ public class Usuario implements UserDetails{ /*UserDetails tem o serializable*/
 	
 	/*O usuario tem muitos telefones*/
 	
-	@OneToMany(mappedBy = "usuario" , orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Telefone> telefones = new ArrayList<Telefone>();
+	@OneToMany(mappedBy = "usuario" , orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)//
+	private List<Telefone> telefones = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.EAGER) /*Um usuario pode ter muitos acessos*/
     @JoinTable(name = "usuarios_role", uniqueConstraints = @UniqueConstraint (
@@ -53,7 +54,9 @@ public class Usuario implements UserDetails{ /*UserDetails tem o serializable*/
     
     inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", table = "role", unique = false, updatable = false,
     foreignKey = @ForeignKey(name = "role_fk", value = ConstraintMode.CONSTRAINT)))/*Criar a tabela com as colunas no banco de dados com o codigo do usuario e acesso*/
-	private List<Role> roles; /*Os papeis ou acessos*/
+
+	
+	private List<Role> roles = new ArrayList<>(); /*Os papeis ou acessos*/
 	
 	
 	public List<Telefone> getTelefones() {

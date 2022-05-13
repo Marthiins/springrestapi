@@ -1,4 +1,4 @@
-package curso.api.rest.security;
+package com.drogariaronepharma.curso.security;
 
 import java.io.IOException;
 
@@ -14,9 +14,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.drogariaronepharma.curso.model.Usuario;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import curso.api.rest.model.Usuario;
 
 /*Estabelece o nosso gerenciador do token*/
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {

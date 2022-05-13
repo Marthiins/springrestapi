@@ -1,4 +1,4 @@
-package curso.api.rest.security;
+package com.drogariaronepharma.curso.security;
 
 import java.io.IOException;
 

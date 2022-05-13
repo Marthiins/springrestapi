@@ -1,4 +1,4 @@
-package curso.api.rest.controller;
+package com.drogariaronepharma.curso.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import curso.api.rest.model.Usuario;
-import curso.api.rest.repository.TelefoneRepository;
-import curso.api.rest.repository.UsuarioRepository;
+import com.drogariaronepharma.curso.model.Usuario;
+import com.drogariaronepharma.curso.repository.TelefoneRepository;
+import com.drogariaronepharma.curso.repository.UsuarioRepository;
 
 
 @RestController /* Obrigatorio Anotação para aceitar os metodos Arquitetura Rest */
@@ -35,9 +35,14 @@ public class IndexController {
 	@GetMapping(value = "/{id}", produces = "application/json") /* Para acessar pela URL é um get */
 	public ResponseEntity<Usuario> init(@PathVariable(value = "id") Long id) {
 
-		Optional<Usuario> usuario = usuarioRepository.findById(id);
+		Usuario usuario = usuarioRepository.findById(id).get();
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+		
+		
+		
+		//Optional<Usuario> usuario = usuarioRepository.findById(id);
 
-		return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK);
+		//return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK);
 
 	}
 
@@ -77,6 +82,8 @@ public class IndexController {
 		for(int pos =0; pos <usuario.getTelefones().size();pos++) {
 			usuario.getTelefones().get(pos).setUsuario(usuario);
 		}
+		String senhaCriptografada = new BCryptPasswordEncoder().encode(usuario.getSenha());
+		usuario.setSenha(senhaCriptografada);
 		
 		Usuario usuarioSalvo = usuarioRepository.save(usuario);
 		

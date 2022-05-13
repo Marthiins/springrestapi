@@ -1,4 +1,4 @@
-package curso.api.rest.model;
+package com.drogariaronepharma.curso.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

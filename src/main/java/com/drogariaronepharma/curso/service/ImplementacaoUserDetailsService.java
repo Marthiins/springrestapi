@@ -1,4 +1,4 @@
-package curso.api.rest.service;
+package com.drogariaronepharma.curso.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import curso.api.rest.model.Usuario;
-import curso.api.rest.repository.UsuarioRepository;
+import com.drogariaronepharma.curso.model.Usuario;
+import com.drogariaronepharma.curso.repository.UsuarioRepository;
 
 @Service
 public class ImplementacaoUserDetailsService implements UserDetailsService { /* Padrão buscar banco de dados */

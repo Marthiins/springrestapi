@@ -16,9 +16,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @CrossOrigin
 @SpringBootApplication
-@EntityScan(basePackages = { "curso.api.rest.model" }) /* Criar as tabelas automaticas */
-@ComponentScan(basePackages = { "curso.*" }) /* anotação Injeção de dependencias tudo que estiver dentro da pasta curso */
-@EnableJpaRepositories(basePackages = {"curso.api.rest.repository"})/*Habilitar a parte do crud*/
+@EntityScan(basePackages = { "com.drogariaronepharma.curso.model" }) /* Criar as tabelas automaticas */
+@ComponentScan(basePackages = { "com.*" }) /* anotação Injeção de dependencias tudo que estiver dentro da pasta curso */
+@EnableJpaRepositories(basePackages = {"com.drogariaronepharma.curso.repository"})/*Habilitar a parte do crud*/
 @EnableTransactionManagement/*Controlar transações no banco de dados*/
 @EnableWebMvc/*Habilitar a parte do mvc*/
 @RestController

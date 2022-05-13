@@ -1,4 +1,4 @@
-package curso.api.rest.model;
+package com.drogariaronepharma.curso.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

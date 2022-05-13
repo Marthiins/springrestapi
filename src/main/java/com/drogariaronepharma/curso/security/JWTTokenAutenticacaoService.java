@@ -1,4 +1,4 @@
-package curso.api.rest.security;
+package com.drogariaronepharma.curso.security;
 
 import java.io.IOException;
 import java.util.Date;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.drogariaronepharma.curso.ApplicationContextLoad;
+import com.drogariaronepharma.curso.model.Usuario;
+import com.drogariaronepharma.curso.repository.UsuarioRepository;
 
-import curso.api.rest.model.Usuario;
-import curso.api.rest.repository.UsuarioRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -29,7 +29,7 @@ public class JWTTokenAutenticacaoService {
 	private static final String SECRET = "SenhaExtremamenteSecreta";
 
 	/* Prefixo padrão de Token */
-	private static final String TOKEN_PREFIX = "Bearer";
+	private static final String TOKEN_PREFIX = "Bearer ";
 
 	private static final String HEADER_STRING = "Authorization";
 

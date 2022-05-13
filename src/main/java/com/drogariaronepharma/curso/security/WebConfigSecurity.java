@@ -1,4 +1,4 @@
-package curso.api.rest.security;
+package com.drogariaronepharma.curso.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import curso.api.rest.service.ImplementacaoUserDetailsService;
+import com.drogariaronepharma.curso.service.ImplementacaoUserDetailsService;
 
 /*Mapeia URL, autoriza ou bloqueia acesso a URL*/
 @Configuration

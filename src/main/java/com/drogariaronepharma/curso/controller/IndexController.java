@@ -110,6 +110,15 @@ public class IndexController {
 		for(int pos =0; pos <usuario.getTelefones().size();pos++) {
 			usuario.getTelefones().get(pos).setUsuario(usuario);
 		}
+		
+		Usuario userTemporario = usuarioRepository.findUserByLogin(usuario.getLogin()); //Buscar Usuario por login
+		
+		if(!userTemporario.getSenha().equals(usuario.getSenha())) {//senhas Diferentes
+			String senhaCriptografada = new BCryptPasswordEncoder().encode(usuario.getSenha());//Criptografar a nova senha
+			usuario.setSenha(senhaCriptografada);//Passar para o usuario a senha criptografada
+			
+		}
+		
 		Usuario usuarioSalvo = usuarioRepository.save(usuario);
 
 		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
